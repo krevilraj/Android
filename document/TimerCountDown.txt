@@ -1,0 +1,32 @@
+ private static final long START_TIME_IN_MILLIS = 60000;
+    private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
+    CountDownTimer timer;
+    boolean mTimerRunning = false;
+    TextView result;
+    
+    private void startTimer() {        
+        timer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+
+            }
+
+            @Override
+            public void onFinish() {
+                mTimerRunning = false;
+                Toast.makeText(MainActivity.this, "Finished timer", Toast.LENGTH_SHORT).show();
+            }
+        }.start();
+
+        mTimerRunning = true;
+    }
+    private void updateCountDownText() {
+        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        result = (TextView) findViewById(R.id.txt_result);
+        result.setText(timeLeftFormatted);
+    }

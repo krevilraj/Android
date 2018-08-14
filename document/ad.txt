@@ -1,0 +1,150 @@
+// --------------------Interstitial Ad-----------------------------------------
+//call from main
+initAD();
+
+
+// call new ad
+private void initAD() {
+	mInterstitialAd = new InterstitialAd(this);
+	// set the ad unit ID
+	mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+
+	AdRequest adRequest = new AdRequest.Builder()
+			.build();
+
+	// Load ads into Interstitial Ads
+	mInterstitialAd.loadAd(adRequest);
+
+	mInterstitialAd.setAdListener(new AdListener() {
+		public void onAdLoaded() {
+		// if ad loded then show
+			if (mInterstitialAd.isLoaded()) {
+				mInterstitialAd.show();
+			}
+		}
+	});
+}
+//in string.xml
+<string name="interstitial_full_screen">ca-app-pub-3940256099942544/1033173712</string>
+
+
+
+//------------------------------Video Ad-----------------------------------------------
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+
+public class ActivityPayable extends AppCompatActivity implements RewardedVideoAdListener{
+	protected void onCreate(Bundle savedInstanceState) {
+		// Use an activity context to get the rewarded video instance.
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+	}
+	
+	private RewardedVideoAd mRewardedVideoAd;
+   
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd(getString(R.string.rewarded_video),
+                new AdRequest.Builder().build());
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        mRewardedVideoAd.show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onResume() {
+        mRewardedVideoAd.resume(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mRewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        mRewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
+	
+	/* -------------------------------- on click on menu ---------------------- */
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       
+        int id = item.getItemId();
+       
+        if (item.getItemId() == R.id.action_ad) {
+            loadRewardedVideoAd();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+	
+	
+}
+
+//----------------------------------------Banner Ad-----------------------------------------
+
+//in onCreate function paste it
+      
+        MobileAds.initialize(getActivity(), getString(R.string.ad_banner));
+        mAdview = (AdView) root_view.findViewById(R.id.adView);
+        AdRequest adRequest1 = new  AdRequest.Builder().build();
+        mAdview.loadAd(adRequest1);
+
+//layout.xml
+ <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_banner"/>
+		
+// string.xml
+ <string name="ad_banner">ca-app-pub-3940256099942544/6300978111</string>
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+//Initialization
+
+SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+Editor editor = pref.edit();
+
+
+
+
+
+
+// ---------------------------------------------------------------------------------
+
+//Storing Data
+//editor.commit() is used in order to save changes to shared preferences.
+
+editor.putBoolean("key_name", true); // Storing boolean - true/false
+editor.putString("key_name", "string value"); // Storing string
+editor.putInt("key_name", "int value"); // Storing integer
+editor.putFloat("key_name", "float value"); // Storing float
+editor.putLong("key_name", "long value"); // Storing long
+ 
+editor.commit(); // commit changes
+
+
+
+
+
+
+//--------------------------------------------------------------------------------
+
+//Retrieving Data
+//Data can be retrieved from saved preferences by calling getString() as follows:
+
+pref.getString("key_name", null); // getting String
+pref.getInt("key_name", null); // getting Integer
+pref.getFloat("key_name", null); // getting Float
+pref.getLong("key_name", null); // getting Long
+pref.getBoolean("key_name", null); // getting boolean
